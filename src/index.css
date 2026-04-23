@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-terminal-bg: #0a0a0a;
+  --color-terminal-green: #00ff41;
+  --color-terminal-dim: #008f11;
+  --color-terminal-white: #ffffff;
+  --color-terminal-amber: #ffb300;
+  --color-terminal-cyan: #00d4ff;
+  --color-terminal-border: #1a1a1a;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #00ff41;
+  font-family: 'JetBrains Mono', monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #008f11;
+  border-radius: 3px;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* CRT scanline overlay */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.crt-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+/* Progress bar animation */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--fill-width); }
+}
+
+.progress-fill {
+  animation: fillBar 1.2s ease-out forwards;
+}
+
+/* Screen flicker on load */
+@keyframes screenOn {
+  0% { opacity: 0; transform: scaleY(0.005); }
+  30% { opacity: 0.5; transform: scaleY(0.005); }
+  35% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 1; transform: scaleY(1); }
+}
+
+.screen-on {
+  animation: screenOn 0.8s ease-out forwards;
+}
+
+/* Glow effect for text */
+.text-glow {
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5), 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* Selection */
+::selection {
+  background: #00ff41;
+  color: #0a0a0a;
+}
+
+/* Slow blink for verification links */
+@keyframes slowBlink {
+  0%, 70% { opacity: 1; }
+  71%, 100% { opacity: 0.2; }
+}
+
+.slow-blink {
+  animation: slowBlink 2s ease-in-out infinite;
+}
