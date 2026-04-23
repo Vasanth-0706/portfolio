@@ -31,8 +31,16 @@ const SECRET = 'sudo hire vasanth';
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState(SCREENS.BOOT);
   const keyBufferRef = useRef('');
+  const containerRef = useRef(null);
 
-  // Global easter egg listener
+  // Auto-focus container on mount and screen changes
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
+  }, [currentScreen]);
+
+  // Global easter egg listener — attached to both window AND document for cross-browser/deployment safety
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Enter') {
@@ -46,14 +54,17 @@ export default function App() {
         keyBufferRef.current = keyBufferRef.current.slice(0, -1);
       } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
         keyBufferRef.current += e.key;
-        // Keep buffer from growing too large
         if (keyBufferRef.current.length > 30) {
           keyBufferRef.current = keyBufferRef.current.slice(-30);
         }
       }
     };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+    window.addEventListener('keydown', handleKey, true);
+    document.addEventListener('keydown', handleKey, true);
+    return () => {
+      window.removeEventListener('keydown', handleKey, true);
+      document.removeEventListener('keydown', handleKey, true);
+    };
   }, []);
 
   const handleBootComplete = useCallback(() => {
@@ -102,7 +113,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-terminal-bg font-mono text-terminal-green relative">
+    <div
+      ref={containerRef}
+      tabIndex={0}
+      className="min-h-screen bg-terminal-bg font-mono text-terminal-green relative outline-none"
+      style={{ outline: 'none' }}
+    >
       <CRTOverlay />
       <div className="relative z-10">
         {renderScreen()}
