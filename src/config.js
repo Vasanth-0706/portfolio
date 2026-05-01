@@ -20,13 +20,13 @@ export const menuHeader = {
 
 // ─── Boot Sequence Lines ─────────────────────────────────────────
 export const bootLines = [
-  { text: '> Checking system dependencies...', delay: 600 },
-  { text: '> Loading Java Runtime (JDK 17)...', delay: 800 },
-  { text: '> Starting Spring Boot context...', delay: 900 },
-  { text: '> Connecting to MySQL...', delay: 700 },
-  { text: '> Mounting AWS S3 bucket...', delay: 600 },
-  { text: '> Loading vasanth.jar...', delay: 1000 },
-  { text: '> Initializing personality.exe...', delay: 700 },
+  { text: '> Checking system dependencies...', delay: 300 },
+  { text: '> Loading Java Runtime (JDK 17)...', delay: 400 },
+  { text: '> Starting Spring Boot context...', delay: 400 },
+  { text: '> Connecting to MySQL...', delay: 300 },
+  { text: '> Mounting AWS S3 bucket...', delay: 300 },
+  { text: '> Loading vasanth.jar...', delay: 500 },
+  { text: '> Initializing personality.exe...', delay: 300 },
 ];
 
 // ─── Skills (ls skills/) ─────────────────────────────────────────

@@ -46,19 +46,19 @@ export default function BootSequence({ onComplete }) {
         clearInterval(interval);
         if (onDone) onDone();
       }
-    }, 25 + Math.random() * 20);
+    }, 15 + Math.random() * 15);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => setShowHeader(true), 300);
+    const t = setTimeout(() => setShowHeader(true), 200);
     return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
     if (!showHeader || barsDone) return;
     if (barProgress < BAR_CHAR_COUNT) {
-      const t = setTimeout(() => setBarProgress(prev => prev + 1), 25);
+      const t = setTimeout(() => setBarProgress(prev => prev + 1), 15);
       return () => clearTimeout(t);
     } else {
       setBarsDone(true);
@@ -67,7 +67,7 @@ export default function BootSequence({ onComplete }) {
 
   useEffect(() => {
     if (!barsDone) return;
-    const t = setTimeout(() => setCurrentIndex(0), 400);
+    const t = setTimeout(() => setCurrentIndex(0), 200);
     return () => clearTimeout(t);
   }, [barsDone]);
 
@@ -79,9 +79,9 @@ export default function BootSequence({ onComplete }) {
         setLineChecks(prev => [...prev, true]);
         setTypingLine('');
         if (currentIndex < bootLines.length - 1) {
-          setTimeout(() => setCurrentIndex(prev => prev + 1), 200);
+          setTimeout(() => setCurrentIndex(prev => prev + 1), 100);
         } else {
-          setTimeout(() => setShowFooter(true), 600);
+          setTimeout(() => setShowFooter(true), 300);
         }
       }, bootLines[currentIndex].delay);
     });
@@ -90,7 +90,7 @@ export default function BootSequence({ onComplete }) {
 
   useEffect(() => {
     if (!showFooter) return;
-    const t = setTimeout(() => setShowPrompt(true), 1000);
+    const t = setTimeout(() => setShowPrompt(true), 500);
     return () => clearTimeout(t);
   }, [showFooter]);
 
