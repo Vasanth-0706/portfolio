@@ -33,16 +33,28 @@ export default function App() {
   const keyBufferRef = useRef('');
   const containerRef = useRef(null);
 
-  // Auto-focus container on mount and screen changes
+  // Auto-focus container on mount, screen changes, and clicks
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.focus();
     }
   }, [currentScreen]);
 
-  // Global easter egg listener — attached to both window AND document for cross-browser/deployment safety
+  const handleContainerClick = () => {
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
+  };
+
+  // Global easter egg listener — single window listener with capture phase
   useEffect(() => {
+    let lastEventTime = 0;
     const handleKey = (e) => {
+      // Dedup guard: ignore if same event fires within 10ms (prevents double-fire)
+      const now = Date.now();
+      if (now - lastEventTime < 10) return;
+      lastEventTime = now;
+
       if (e.key === 'Enter') {
         if (keyBufferRef.current.trim().toLowerCase() === SECRET) {
           setCurrentScreen(SCREENS.EASTEREGG);
@@ -60,11 +72,7 @@ export default function App() {
       }
     };
     window.addEventListener('keydown', handleKey, true);
-    document.addEventListener('keydown', handleKey, true);
-    return () => {
-      window.removeEventListener('keydown', handleKey, true);
-      document.removeEventListener('keydown', handleKey, true);
-    };
+    return () => window.removeEventListener('keydown', handleKey, true);
   }, []);
 
   const handleBootComplete = useCallback(() => {
@@ -116,6 +124,7 @@ export default function App() {
     <div
       ref={containerRef}
       tabIndex={0}
+      onClick={handleContainerClick}
       className="min-h-screen bg-terminal-bg font-mono text-terminal-green relative outline-none"
       style={{ outline: 'none' }}
     >
