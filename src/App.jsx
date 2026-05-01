@@ -11,6 +11,7 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Experience from './components/Experience';
 import EasterEgg from './components/EasterEgg';
+import Help from './components/Help';
 
 const SCREENS = {
   BOOT: 'boot',
@@ -24,6 +25,7 @@ const SCREENS = {
   CONTACT: 'contact',
   EXPERIENCE: 'experience',
   EASTEREGG: 'easteregg',
+  HELP: 'help',
 };
 
 const SECRET = 'sudo hire vasanth';
@@ -56,8 +58,11 @@ export default function App() {
       lastEventTime = now;
 
       if (e.key === 'Enter') {
-        if (keyBufferRef.current.trim().toLowerCase() === SECRET) {
+        const typed = keyBufferRef.current.trim().toLowerCase();
+        if (typed === SECRET) {
           setCurrentScreen(SCREENS.EASTEREGG);
+        } else if (typed === 'help') {
+          setCurrentScreen(SCREENS.HELP);
         }
         keyBufferRef.current = '';
         return;
@@ -115,6 +120,8 @@ export default function App() {
         return <Experience onBack={handleBack} />;
       case SCREENS.EASTEREGG:
         return <EasterEgg onComplete={handleEasterEggComplete} />;
+      case SCREENS.HELP:
+        return <Help onBack={handleBack} />;
       default:
         return <MainMenu onNavigate={handleNavigate} />;
     }

@@ -59,7 +59,7 @@ export const skillCategories = [
     skills: [
       { name: 'REST APIs', level: 80 },
       { name: 'DSA', level: 70 },
-      { name: 'Microservices', level: 60 },
+      // { name: 'Microservices', level: 60 },
     ],
   },
 ];
