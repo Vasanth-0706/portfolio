@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-terminal-bg: #0a0a0a;
-  --color-terminal-green: #00ff41;
-  --color-terminal-dim: #008f11;
+  --color-terminal-bg: #0d1117;
+  --color-terminal-green: #2dd4bf;
+  --color-terminal-dim: #0f766e;
   --color-terminal-white: #ffffff;
   --color-terminal-amber: #ffb300;
   --color-terminal-cyan: #00d4ff;
@@ -22,8 +22,8 @@ html {
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #00ff41;
+  background-color: #0d1117;
+  color: #2dd4bf;
   font-family: 'JetBrains Mono', monospace;
   overflow-x: hidden;
   min-height: 100vh;
@@ -38,10 +38,10 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #0d1117;
 }
 ::-webkit-scrollbar-thumb {
-  background: #008f11;
+  background: #0f766e;
   border-radius: 3px;
 }
 
@@ -66,8 +66,8 @@ body {
   z-index: 9999;
   background: repeating-linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.15) 0px,
-    rgba(0, 0, 0, 0.15) 1px,
+    rgba(0, 0, 0, 0.05) 0px,
+    rgba(0, 0, 0, 0.05) 1px,
     transparent 1px,
     transparent 3px
   );
@@ -83,7 +83,7 @@ body {
   background: radial-gradient(
     ellipse at center,
     transparent 60%,
-    rgba(0, 0, 0, 0.4) 100%
+    rgba(0, 0, 0, 0.2) 100%
   );
   pointer-events: none;
 }
@@ -117,8 +117,8 @@ body {
 
 /* Selection */
 ::selection {
-  background: #00ff41;
-  color: #0a0a0a;
+  background: #2dd4bf;
+  color: #0d1117;
 }
 
 /* Slow blink for verification links */

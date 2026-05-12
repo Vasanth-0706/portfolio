@@ -31,7 +31,7 @@ export default function EasterEgg({ onComplete }) {
   }, [visibleLines, onComplete]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-[100dvh] py-8 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl space-y-2">
         {lines.slice(0, visibleLines).map((line, i) => (
           <p key={i} className={`${line.color} text-sm sm:text-base`}>

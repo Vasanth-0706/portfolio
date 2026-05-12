@@ -109,7 +109,7 @@ export default function BootSequence({ onComplete }) {
   const bottomBar = `█${bottomBarFill}█`;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 screen-on">
+    <div className="min-h-[100dvh] py-8 flex items-center justify-center p-4 screen-on">
       <div className="w-full max-w-2xl">
         {showHeader && (
           <div className="mb-6 transition-opacity duration-500 text-center">
