@@ -48,7 +48,7 @@ export default function Help({ onBack }) {
   }, [onBack]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-[100dvh] py-8 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         {showCommand && (
           <p className="text-terminal-green text-sm sm:text-base mb-6 text-glow">

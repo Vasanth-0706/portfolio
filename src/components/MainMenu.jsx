@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import BlinkingCursor from './BlinkingCursor';
 import { menuHeader, showExperience } from '../config';
+import { animationState } from '../state';
 
 function buildMenuItems() {
   const items = [
@@ -22,18 +23,19 @@ function buildMenuItems() {
 
 export default function MainMenu({ onNavigate }) {
   const menuItems = useMemo(() => buildMenuItems(), []);
-  const [showHeader, setShowHeader] = useState(false);
-  const [visibleItems, setVisibleItems] = useState(0);
-  const [showCursor, setShowCursor] = useState(false);
+  const [showHeader, setShowHeader] = useState(animationState.menu);
+  const [visibleItems, setVisibleItems] = useState(animationState.menu ? menuItems.length : 0);
+  const [showCursor, setShowCursor] = useState(animationState.menu);
   const [inputText, setInputText] = useState('');
 
   useEffect(() => {
+    if (animationState.menu) return;
     const t = setTimeout(() => setShowHeader(true), 200);
     return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
-    if (!showHeader) return;
+    if (animationState.menu || !showHeader) return;
     if (visibleItems < menuItems.length) {
       const t = setTimeout(() => setVisibleItems(prev => prev + 1), 300);
       return () => clearTimeout(t);
@@ -41,7 +43,13 @@ export default function MainMenu({ onNavigate }) {
       const t = setTimeout(() => setShowCursor(true), 400);
       return () => clearTimeout(t);
     }
-  }, [showHeader, visibleItems]);
+  }, [showHeader, visibleItems, menuItems]);
+
+  useEffect(() => {
+    if (showCursor) {
+      animationState.menu = true;
+    }
+  }, [showCursor]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -62,7 +70,7 @@ export default function MainMenu({ onNavigate }) {
   }, [onNavigate]);
 
   return (
-    <div className="h-screen flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-[100dvh] py-8 flex items-center justify-center p-4 overflow-hidden">
       <div className="w-full max-w-2xl">
         {showHeader && (
           <div className="mb-8 text-center">
